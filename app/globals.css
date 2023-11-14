@@ -18,6 +18,7 @@
 
 body {
   background: #fffdfc;
+  overflow: hidden;
 }
 button{
   user-select: none;
