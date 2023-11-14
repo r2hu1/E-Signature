@@ -85,20 +85,36 @@ export default function New() {
         link.click();
     }
 
+    const shareCanvas = () => {
+        const canvas = canvasRef.current;
+        canvas.toBlob((blob) => {
+            navigator.share({
+                files: [new File([blob], 'canvas.png', { type: 'image/png' })],
+            });
+        });
+    }
+
+    const animate = () => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = false;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        requestAnimationFrame(animate);
+    }
+
+    useEffect(() => {
+        animate();
+    }, []);
+
     return (
         <>
             <div className="box-border p-5">
-                <div className="h-[400px] w-full border rounded-xl">
+                <div className="h-[200px] w-full border rounded-xl">
                     <canvas ref={canvasRef} id="cvna" className='h-full w-full rounded-xl bg-white'></canvas>
                 </div>
                 <div className='m-5 flex gap-2 mt-8'>
                     <button onClick={saveAsImage} className="bg-purple-700 p-3 rounded-full text-white text-sm pl-4 pr-4 transition-transform outline-none border-none hover:scale-95 w-full">Download</button>
-                    <button className="bg-purple-700 p-3 rounded-full text-white text-sm pl-4 pr-4 transition-transform outline-none border-none hover:scale-95 w-full" onClick={()=>{ const canvas = canvasRef.current;
-                        canvas.toBlob((blob) => {
-                            navigator.share({
-                                files: [new File([blob], 'canvas.png', { type: 'image/png' })],
-                            });
-                        }); }}>Share</button>
+                    <button className="bg-purple-700 p-3 rounded-full text-white text-sm pl-4 pr-4 transition-transform outline-none border-none hover:scale-95 w-full" onClick={shareCanvas}>Share</button>
                 </div>
             </div>
         </>
