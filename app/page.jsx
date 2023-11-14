@@ -59,19 +59,23 @@ export default function New() {
 
         canvas.addEventListener('mousedown', start);
         canvas.addEventListener('mouseup', end);
+        canvas.addEventListener('mouseout', end);
         canvas.addEventListener('mousemove', draw);
 
         canvas.addEventListener('touchstart', start);
         canvas.addEventListener('touchend', end);
+        canvas.addEventListener('touchcancel', end);
         canvas.addEventListener('touchmove', draw);
 
         return () => {
             canvas.removeEventListener('mousedown', start);
             canvas.removeEventListener('mouseup', end);
+            canvas.removeEventListener('mouseout', end);
             canvas.removeEventListener('mousemove', draw);
 
             canvas.removeEventListener('touchstart', start);
             canvas.removeEventListener('touchend', end);
+            canvas.removeEventListener('touchcancel', end);
             canvas.removeEventListener('touchmove', draw);
         }
     }, []);
