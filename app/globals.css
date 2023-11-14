@@ -19,3 +19,7 @@
 body {
   background: #fffdfc;
 }
+button{
+  user-select: none;
+  color:#fff;
+}
