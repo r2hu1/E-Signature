@@ -81,7 +81,7 @@ export default function New() {
         const dataUrl = canvas.toDataURL('image/png');
         const link = document.createElement('a');
         link.href = dataUrl;
-        link.download = 'canvas.png';
+        link.download = 'e-signature.png';
         link.click();
     }
 
