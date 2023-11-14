@@ -96,7 +96,7 @@ export default function New() {
                     <button className="bg-purple-700 p-3 rounded-full text-white text-sm pl-4 pr-4 transition-transform outline-none border-none hover:scale-95 w-full" onClick={()=>{ const canvas = canvasRef.current;
                         canvas.toBlob((blob) => {
                             navigator.share({
-                                files: [new File([blob], 'canvas.png', { type: 'image/png' })],
+                                files: [new File([blob], 'esignature.png', { type: 'image/png' })],
                             });
                         }); }}>Share</button>
                 </div>
