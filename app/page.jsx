@@ -16,8 +16,14 @@ export default function New() {
         ctx.strokeStyle = 'black';
 
         const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        let x, y;
+        if (e.type === 'touchmove') {
+            x = e.touches[0].clientX - rect.left;
+            y = e.touches[0].clientY - rect.top;
+        } else {
+            x = e.clientX - rect.left;
+            y = e.clientY - rect.top;
+        }
 
         ctx.lineTo(x, y);
         ctx.stroke();
@@ -30,8 +36,14 @@ export default function New() {
         ctx.beginPath();
 
         const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        let x, y;
+        if (e.type === 'touchstart') {
+            x = e.touches[0].clientX - rect.left;
+            y = e.touches[0].clientY - rect.top;
+        } else {
+            x = e.clientX - rect.left;
+            y = e.clientY - rect.top;
+        }
 
         ctx.moveTo(x, y);
     }
@@ -49,11 +61,18 @@ export default function New() {
         canvas.addEventListener('mouseup', end);
         canvas.addEventListener('mousemove', draw);
 
+        canvas.addEventListener('touchstart', start);
+        canvas.addEventListener('touchend', end);
+        canvas.addEventListener('touchmove', draw);
 
         return () => {
             canvas.removeEventListener('mousedown', start);
             canvas.removeEventListener('mouseup', end);
             canvas.removeEventListener('mousemove', draw);
+
+            canvas.removeEventListener('touchstart', start);
+            canvas.removeEventListener('touchend', end);
+            canvas.removeEventListener('touchmove', draw);
         }
     }, []);
 
